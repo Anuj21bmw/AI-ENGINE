@@ -1,14 +1,21 @@
-from src.utils import load_data # type: ignore
-from src.recommendation import CollaborativeFiltering # type: ignore
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "src")))
+
+from utils import load_data
+from recommendation import CollaborativeFiltering
+
+
 
 def main():
     # Load data
     user_data, item_data = load_data('data/users.csv', 'data/items.csv')
 
-    # Build Collaborative Filtering
+    # Build Collaborative Filtering model
     cf_model = CollaborativeFiltering(user_data)
     interaction_matrix = cf_model.build_interaction_matrix()
-    print("Interaction Matrix:\n", interaction_matrix)
+    print("User-Item Interaction Matrix:\n", interaction_matrix)
 
     similarity_matrix = cf_model.calculate_similarity()
     print("Item Similarity Matrix:\n", similarity_matrix)
